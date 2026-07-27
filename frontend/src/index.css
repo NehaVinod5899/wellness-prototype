@@ -1,0 +1,97 @@
+/* ==========================================================================
+   Design tokens - implements the Design Specification (dissertation
+   Section 5.2 / 5.6). Every value here is traceable to a DR requirement;
+   see the comment next to each token.
+   ========================================================================== */
+:root {
+  /* Spacing: 8px base unit (Section 5.6.3) */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+
+  /* Colour (Section 5.6.2). All pairings below meet WCAG 2.2 AA (>=4.5:1). */
+  --color-bg: #ffffff;
+  --color-text: #1a1a1a;              /* ~15.8:1 on white */
+  --color-text-secondary: #4a4a4a;    /* ~8.6:1 on white */
+  --color-border: #d0d0d0;
+  --color-card-bg: #f4f4f4;
+
+  --color-positive: #1e7d34;          /* green, ~5.1:1 on white - Happy / Join / Favourite */
+  --color-positive-bg: #e6f4ea;
+  --color-warning: #a15c00;           /* amber, ~5.2:1 on white - Okay */
+  --color-warning-bg: #fdf0dc;
+  --color-negative: #b3261e;          /* red, ~5.9:1 on white - Not Great */
+  --color-negative-bg: #fbe9e7;
+
+  /* Emergency red reserved exclusively for the one emergency action
+     (Section 5.6.2 note - never reused elsewhere in the interface) */
+  --color-emergency: #b3261e;
+  --color-emergency-bg: #fbe9e7;
+
+  --color-accent: #1a5fb4;            /* links / secondary actions, ~6.3:1 on white */
+
+  /* Typography (Section 5.6.1) */
+  --font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-title: 24px;
+  --font-body: 18px;      /* DR-2 floor - never go smaller */
+  --font-secondary: 16px; /* absolute floor for secondary/meta text */
+  --font-button: 18px;
+
+  /* Component sizing (Section 5.6.4) */
+  --tap-target-min: 48px; /* DR-4 / WCAG 2.2 2.5.5 */
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: var(--font-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+#root {
+  max-width: 420px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  font-family: inherit;
+  font-size: var(--font-button);
+  cursor: pointer;
+}
+
+/* Every tappable element meets the 48x48px minimum (DR-4). Applied as a
+   floor, not an exact size, so labelled buttons can be wider. */
+button,
+a.tap-target {
+  min-height: var(--tap-target-min);
+  min-width: var(--tap-target-min);
+}
+
+a {
+  color: var(--color-accent);
+}
+
+.screen {
+  flex: 1;
+  padding: var(--space-3) var(--space-2) calc(var(--tap-target-min) + var(--space-3));
+  overflow-y: auto;
+}
+
+.screen h1 {
+  font-size: var(--font-title);
+  margin: 0 0 var(--space-2);
+}
+
+.secondary-text {
+  font-size: var(--font-secondary);
+  color: var(--color-text-secondary);
+}

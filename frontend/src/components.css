@@ -1,0 +1,214 @@
+/* ==========================================================================
+   Shared component styles. Each rule notes the DR/principle it satisfies.
+   ========================================================================== */
+
+/* --- Reminder card (Home) - DR-8 proactive engagement.
+   Visually distinct from nav tiles per peer feedback #2 (Section 5.6):
+   uses a left accent border and different background, not just a box. --- */
+.reminder-card {
+  background: var(--color-card-bg);
+  border-left: 6px solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+.reminder-card .label {
+  font-size: var(--font-secondary);
+  color: var(--color-text-secondary);
+  margin: 0 0 4px;
+}
+.reminder-card .title {
+  font-size: var(--font-body);
+  font-weight: 600;
+  margin: 0 0 var(--space-1);
+}
+
+/* --- Nav tiles (Home) - DR-1 integration, DR-5 one purpose per element --- */
+.tile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-1);
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: var(--font-body);
+  font-weight: 600;
+  min-height: 96px;
+}
+.tile .icon {
+  font-size: 28px;
+}
+
+/* --- Bottom navigation - DR-5 consistent navigation.
+   Wellbeing included here (Iteration 4 fix - see Section 5.6, peer
+   feedback #3: Wellbeing was missing from the bottom nav). --- */
+.bottom-nav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg);
+  position: sticky;
+  bottom: 0;
+}
+.bottom-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: var(--space-1) 0;
+  min-height: var(--tap-target-min);
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+.bottom-nav a.active {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* --- Mood options (Wellbeing) - DR-4 large targets, DR-5 one action --- */
+.mood-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+.mood-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 56px;
+  border-radius: var(--radius);
+  border: 2px solid var(--color-border);
+  background: var(--color-bg);
+  padding: 0 var(--space-2);
+  font-size: var(--font-body);
+  font-weight: 600;
+  text-align: left;
+}
+.mood-option .icon { font-size: 24px; }
+.mood-option.happy.selected { border-color: var(--color-positive); background: var(--color-positive-bg); color: var(--color-positive); }
+.mood-option.okay.selected { border-color: var(--color-warning); background: var(--color-warning-bg); color: var(--color-warning); }
+.mood-option.not_great.selected { border-color: var(--color-negative); background: var(--color-negative-bg); color: var(--color-negative); }
+
+/* --- Escalation buttons (Wellbeing) - DR-8, DR-9 sensitive data --- */
+.escalation {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-bottom: var(--space-3);
+}
+.btn-favourite {
+  background: var(--color-positive-bg);
+  color: var(--color-positive);
+  border: 2px solid var(--color-positive);
+  border-radius: var(--radius);
+  padding: 0 var(--space-2);
+  font-weight: 600;
+}
+.btn-emergency {
+  background: var(--color-emergency-bg);
+  color: var(--color-emergency);
+  border: 2px solid var(--color-emergency);
+  border-radius: var(--radius);
+  padding: 0 var(--space-2);
+  font-weight: 600;
+}
+.btn-primary {
+  width: 100%;
+  background: var(--color-text);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+}
+.btn-secondary {
+  width: 100%;
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  font-weight: 600;
+}
+
+/* --- Contact rows (Messages) - DR-4/DR-7 one-tap call, no typing --- */
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-card-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+.contact-row .name {
+  flex: 1;
+  font-size: var(--font-body);
+  font-weight: 600;
+}
+.call-btn {
+  background: var(--color-positive-bg);
+  color: var(--color-positive);
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+}
+.shortcut-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-top: var(--space-2);
+}
+
+/* --- Community group cards - DR-1/DR-8 suggested, not searched --- */
+.group-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+.group-card .name { font-weight: 600; margin: 0 0 4px; }
+.join-btn {
+  border: none;
+  border-radius: var(--radius);
+  padding: 0 var(--space-2);
+  font-weight: 600;
+}
+.join-btn.not-joined { background: var(--color-positive-bg); color: var(--color-positive); }
+.join-btn.joined { background: var(--color-card-bg); color: var(--color-text-secondary); }
+
+/* --- Settings list --- */
+.settings-list { display: flex; flex-direction: column; gap: var(--space-1); }
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: var(--tap-target-min);
+  border-bottom: 1px solid var(--color-border);
+}
