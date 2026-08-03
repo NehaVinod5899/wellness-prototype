@@ -26,8 +26,27 @@ export const api = {
     request(`/contacts/${id}`, { method: 'PUT', body: JSON.stringify(contact) }),
   deleteContact: (id) => request(`/contacts/${id}`, { method: 'DELETE' }),
 
+  // mesaages
+  getMessages: () => request('/messages'),
+  sendMessage: (contactId, text) =>
+    request('/messages', { method: 'POST', body: JSON.stringify({ contactId, text }) }),
+
+
   // Community groups
   getGroups: () => request('/groups'),
   joinGroup: (id) => request(`/groups/${id}/join`, { method: 'POST' }),
   leaveGroup: (id) => request(`/groups/${id}/leave`, { method: 'POST' }),
+
+  // profile setup
+  getProfile: async () => {
+  const res = await fetch(`${BASE_URL}/profile`);
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`API error ${res.status} on /profile`);
+  return res.json();
+},
+  createProfile: (profile) => request('/profile', { method: 'POST', body: JSON.stringify(profile) }),
+  verifyPin: (pin) => request('/profile/verify-pin', { method: 'POST', body: JSON.stringify({ pin }) }),
+
+  
 };
+

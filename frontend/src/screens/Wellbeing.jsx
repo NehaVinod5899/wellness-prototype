@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { api } from '../api.js';
+import Modal from '../components/Modal.jsx';
+import ReadAloudButton from '../components/ReadAloudButton.jsx';
 
 const MOODS = [
   { value: 'HAPPY', label: 'Happy', icon: '🙂', className: 'happy' },
@@ -8,20 +10,23 @@ const MOODS = [
 ];
 
 /**
- * Wellbeing check-in screen (Section 5.4).
- * - Three discrete mood options only, not a slider/free text (DR-4, DR-5,
- *   and the rationale in Section 5.3.2, peer feedback point 1: colour is
- *   never the only signal - every mood option always shows icon + label).
- * - Quick-contact escalation surfaced only after a mood is selected
- *   (DR-8), using the FAVOURITE / EMERGENCY contacts from the backend.
- * - Save persists the check-in via POST /api/checkins (one primary action,
- *   DR-5), recording whether escalation was used (DR-9 data minimisation -
- *   we store only a boolean flag, not which contact or why).
+ * Wellbeing check-in screen
+ *
+ * Escalation behaviour (updated):
+ * - Selecting "Not Great" automatically opens the escalation modal - the user does not have to notice or
+ *   scroll to a button on a bad day). Happy/Okay do NOT trigger the modal;
+ * - The modal is always dismissible ("Not now") - this is deliberately
+ *   NOT a forced escalation. An older adult having a bad day still needs
+ *   control over whether to reach out; 
+ * - Dismissing the modal still leaves a manual "Need to talk?" section
+ *   visible below, so the option remains reachable without being
+ *   re-triggered on every interaction.
  */
 export default function Wellbeing() {
   const [selectedMood, setSelectedMood] = useState(null);
   const [contacts, setContacts] = useState([]);
   const [escalated, setEscalated] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState(null);
 
@@ -31,6 +36,20 @@ export default function Wellbeing() {
 
   const favourite = contacts.find((c) => c.role === 'FAVOURITE');
   const emergency = contacts.find((c) => c.role === 'EMERGENCY');
+
+  function selectMood(moodValue) {
+    setSelectedMood(moodValue);
+    if (moodValue === 'NOT_GREAT') {
+      setModalOpen(true);
+    }
+  }
+
+  function handleCallFromModal() {
+    setEscalated(true);
+    setModalOpen(false);
+    // tel: link navigation is handled by the anchor itself; this just
+    // records that the user chose to reach out before the link fires.
+  }
 
   async function handleSave() {
     if (!selectedMood) return;
@@ -46,6 +65,7 @@ export default function Wellbeing() {
   return (
     <div className="screen">
       <h1>Daily Wellbeing Check</h1>
+      <ReadAloudButton text="Daily wellbeing check. How are you feeling today? Choose Happy, Okay, or Not Great." />
       <p className="secondary-text" style={{ marginTop: -8, marginBottom: 24 }}>
         How are you feeling today?
       </p>
@@ -58,7 +78,7 @@ export default function Wellbeing() {
             role="radio"
             aria-checked={selectedMood === mood.value}
             className={`mood-option ${mood.className} ${selectedMood === mood.value ? 'selected' : ''}`}
-            onClick={() => setSelectedMood(mood.value)}
+            onClick={() => selectMood(mood.value)}
           >
             <span className="icon" aria-hidden="true">{mood.icon}</span>
             {mood.label}
@@ -66,7 +86,9 @@ export default function Wellbeing() {
         ))}
       </div>
 
-      {selectedMood && (
+      {/* Manual escalation section - only relevant once "Not Great" has
+          been selected; kept available after the modal is dismissed. */}
+      {selectedMood === 'NOT_GREAT' && (
         <>
           <p className="secondary-text" style={{ marginBottom: 8 }}>Need to talk?</p>
           <div className="escalation">
@@ -108,6 +130,39 @@ export default function Wellbeing() {
           {error}
         </p>
       )}
+
+      <Modal
+        open={modalOpen}
+        title="Would you like to reach out?"
+        onClose={() => setModalOpen(false)}
+      >
+        <p>You told us today isn't a great day. Would you like to contact someone now?</p>
+        <div className="modal-actions">
+          {favourite && (
+            <a
+              href={`tel:${favourite.phoneNumber}`}
+              className="btn-favourite tap-target"
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}
+              onClick={handleCallFromModal}
+            >
+              Call {favourite.name} (Favourite)
+            </a>
+          )}
+          {emergency && (
+            <a
+              href={`tel:${emergency.phoneNumber}`}
+              className="btn-emergency tap-target"
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}
+              onClick={handleCallFromModal}
+            >
+              Call Emergency
+            </a>
+          )}
+          <button type="button" className="btn-secondary" onClick={() => setModalOpen(false)}>
+            Not now
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }
