@@ -1,10 +1,4 @@
-/* ==========================================================================
-   Shared component styles. Each rule notes the DR/principle it satisfies.
-   ========================================================================== */
 
-/* --- Reminder card (Home) - DR-8 proactive engagement.
-   Visually distinct from nav tiles per peer feedback #2 (Section 5.6):
-   uses a left accent border and different background, not just a box. --- */
 .reminder-card {
   background: var(--color-card-bg);
   border-left: 6px solid var(--color-accent);
@@ -23,7 +17,7 @@
   margin: 0 0 var(--space-1);
 }
 
-/* --- Nav tiles (Home) - DR-1 integration, DR-5 one purpose per element --- */
+/* --- Nav tiles (Home) --- */
 .tile-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -49,9 +43,7 @@
   font-size: 28px;
 }
 
-/* --- Bottom navigation - DR-5 consistent navigation.
-   Wellbeing included here (Iteration 4 fix - see Section 5.6, peer
-   feedback #3: Wellbeing was missing from the bottom nav). --- */
+/* --- Bottom navigation  --- */
 .bottom-nav {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -77,7 +69,7 @@
   font-weight: 600;
 }
 
-/* --- Mood options (Wellbeing) - DR-4 large targets, DR-5 one action --- */
+/* --- Mood options (Wellbeing)--- */
 .mood-list {
   display: flex;
   flex-direction: column;
@@ -103,7 +95,7 @@
 .mood-option.okay.selected { border-color: var(--color-warning); background: var(--color-warning-bg); color: var(--color-warning); }
 .mood-option.not_great.selected { border-color: var(--color-negative); background: var(--color-negative-bg); color: var(--color-negative); }
 
-/* --- Escalation buttons (Wellbeing) - DR-8, DR-9 sensitive data --- */
+/* --- Escalation buttons (Wellbeing) --- */
 .escalation {
   display: flex;
   flex-direction: column;
@@ -143,7 +135,7 @@
   font-weight: 600;
 }
 
-/* --- Contact rows (Messages) - DR-4/DR-7 one-tap call, no typing --- */
+/* --- Contact rows (Messages)  --- */
 .contact-row {
   display: flex;
   align-items: center;
@@ -181,8 +173,58 @@
   gap: var(--space-1);
   margin-top: var(--space-2);
 }
+.message-panel {
+  margin-top: var(--space-2);
+  padding: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+.compose-form { 
+  display: flex; 
+  flex-direction: column; 
+  gap: var(--space-1); 
+}
+.compose-form select, .compose-form input { 
+  min-height: var(--tap-target-min); 
+  font-size: var(--font-body); 
+  border: 1px solid var(--color-border); 
+  border-radius: var(--radius); 
+  padding: 0 var(--space-1); 
+}
+.message-row, .voice-message-row { 
+  display: flex; 
+  justify-content: space-between; 
+  gap: var(--space-1); 
+  padding: var(--space-1) 0; 
+  border-bottom: 1px solid var(--color-border); 
+  font-size: var(--font-body); 
+}
+.message-row .name { 
+  font-weight: 600; 
+  flex-shrink: 0; 
+}
+.favourite-btn {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+}
+.favourite-btn:disabled {
+  opacity: 1;
+  cursor: default;
+}
+.delete-btn {
+  background: var(--color-card-bg);
+  color: var(--color-text-secondary);
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  margin-left: var(--space-3);
+}
 
-/* --- Community group cards - DR-1/DR-8 suggested, not searched --- */
+
+/* --- Community group cards -- */
 .group-card {
   display: flex;
   justify-content: space-between;
@@ -211,4 +253,62 @@
   align-items: center;
   min-height: var(--tap-target-min);
   border-bottom: 1px solid var(--color-border);
+}
+
+
+/* --- Escalation modal (Wellbeing, auto-triggered on "Not Great") --- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+}
+.modal-box {
+  background: var(--color-bg);
+  width: 100%;
+  max-width: 420px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: var(--space-3) var(--space-2);
+  outline: none;
+}
+.modal-box h2 {
+  font-size: var(--font-title);
+  margin: 0 0 var(--space-1);
+}
+.modal-box p {
+  font-size: var(--font-body);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-2);
+}
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.read-aloud-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-card-bg);
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: 0 var(--space-2);
+  font-size: var(--font-secondary);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+/* --- Setup wizard / Lock screen inputs --- */
+.setup-input {
+  display: block;
+  width: 100%;
+  min-height: var(--tap-target-min);
+  font-size: var(--font-body);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0 var(--space-2);
 }

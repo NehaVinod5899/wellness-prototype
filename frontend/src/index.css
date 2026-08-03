@@ -1,44 +1,39 @@
-/* ==========================================================================
-   Design tokens - implements the Design Specification (dissertation
-   Section 5.2 / 5.6). Every value here is traceable to a DR requirement;
-   see the comment next to each token.
-   ========================================================================== */
+
 :root {
-  /* Spacing: 8px base unit (Section 5.6.3) */
+  /* Spacing: 8px base unit */
   --space-1: 8px;
   --space-2: 16px;
   --space-3: 24px;
 
-  /* Colour (Section 5.6.2). All pairings below meet WCAG 2.2 AA (>=4.5:1). */
+  /* Colour  */
   --color-bg: #ffffff;
-  --color-text: #1a1a1a;              /* ~15.8:1 on white */
-  --color-text-secondary: #4a4a4a;    /* ~8.6:1 on white */
+  --color-text: #1a1a1a;              
+  --color-text-secondary: #4a4a4a;    
   --color-border: #d0d0d0;
   --color-card-bg: #f4f4f4;
 
-  --color-positive: #1e7d34;          /* green, ~5.1:1 on white - Happy / Join / Favourite */
+  --color-positive: #1e7d34;          
   --color-positive-bg: #e6f4ea;
-  --color-warning: #a15c00;           /* amber, ~5.2:1 on white - Okay */
+  --color-warning: #a15c00;          
   --color-warning-bg: #fdf0dc;
-  --color-negative: #b3261e;          /* red, ~5.9:1 on white - Not Great */
+  --color-negative: #b3261e;          
   --color-negative-bg: #fbe9e7;
 
-  /* Emergency red reserved exclusively for the one emergency action
-     (Section 5.6.2 note - never reused elsewhere in the interface) */
+  /* Emergency red reserved exclusively for the one emergency action */
   --color-emergency: #b3261e;
   --color-emergency-bg: #fbe9e7;
 
-  --color-accent: #1a5fb4;            /* links / secondary actions, ~6.3:1 on white */
+  --color-accent: #1a5fb4;            
 
-  /* Typography (Section 5.6.1) */
+  /* Typography  */
   --font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-title: 24px;
-  --font-body: 18px;      /* DR-2 floor - never go smaller */
-  --font-secondary: 16px; /* absolute floor for secondary/meta text */
+  --font-body: 18px;    
+  --font-secondary: 16px;
   --font-button: 18px;
 
-  /* Component sizing (Section 5.6.4) */
-  --tap-target-min: 48px; /* DR-4 / WCAG 2.2 2.5.5 */
+  /* Component sizing  */
+  --tap-target-min: 48px; 
   --radius: 12px;
 }
 
@@ -68,8 +63,7 @@ button {
   cursor: pointer;
 }
 
-/* Every tappable element meets the 48x48px minimum (DR-4). Applied as a
-   floor, not an exact size, so labelled buttons can be wider. */
+/* Every tappable element meets the 48x48px minimum  */
 button,
 a.tap-target {
   min-height: var(--tap-target-min);
@@ -94,4 +88,37 @@ a {
 .secondary-text {
   font-size: var(--font-secondary);
   color: var(--color-text-secondary);
+}
+body.high-contrast {
+  background: #ffffff;
+  color: #000000;
+}
+
+body.high-contrast .screen {
+  background: #181818;
+  color: #ffffff;
+}
+
+body.high-contrast .tile,
+body.high-contrast .message-panel,
+body.high-contrast .group-card,
+body.high-contrast .reminder-card {
+  background: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
+}
+
+body.high-contrast .btn-primary {
+  background: #000000;
+  color: #ffffff;
+}
+
+body.high-contrast .btn-secondary {
+  background: #000000;
+  color: #ffffff;
+  border: 2px solid #000000;
+}
+
+body.high-contrast a {
+  color: #000000;
 }

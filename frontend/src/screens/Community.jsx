@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import { api } from '../api.js';
+import ReadAloudButton from '../components/ReadAloudButton.jsx';
 
 /**
- * Community screen (Section 5.4).
- * Groups are surfaced directly ("Suggested for you") rather than requiring
- * search or filtering (DR-1, DR-8) - directly answers the Nextdoor/Meetup
- * self-navigation gap identified in Section 3.3.2.
+ * Community screen 
  */
 export default function Community() {
   const [groups, setGroups] = useState([]);
@@ -35,6 +33,13 @@ export default function Community() {
   return (
     <div className="screen">
       <h1>Community</h1>
+      <ReadAloudButton
+        text={
+          groups.length
+            ? `Community. Suggested for you: ${groups.map((g) => `${g.name}, ${g.schedule}`).join('. ')}.`
+            : 'Community. No suggested groups yet.'
+        }
+      />
       <p className="secondary-text" style={{ marginTop: -8, marginBottom: 24 }}>
         Suggested for you
       </p>
