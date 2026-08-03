@@ -9,9 +9,9 @@ import java.util.List;
 
 /**
  * Endpoints for Contacts, used by:
- *  - Messages screen: full contact list, one-tap call (DR-4, DR-7)
- *  - Wellbeing screen: quick-contact escalation (favourite / emergency) (DR-8, DR-9)
- *  - Settings screen: add/edit/remove contacts (Section 5.6, peer feedback point 4)
+ *  - Messages screen: full contact list, one-tap call 
+ *  - Wellbeing screen: quick-contact escalation (favourite / emergency) 
+ *  - Settings screen: add/edit/remove contacts 
  */
 @RestController
 @RequestMapping("/api/contacts")

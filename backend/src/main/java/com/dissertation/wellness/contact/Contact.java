@@ -6,11 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 /**
  * A contact usable from the Messages screen and/or the Wellbeing
- * quick-contact escalation feature (Section 5.4).
- *
- * Treated as sensitive data per DR-9 / DR-10 (GDPR Art. 5(1)(c), Art. 9):
- * only name, phone number and role are stored - no address, no relationship
- * detail beyond what the escalation feature itself needs.
+ * quick-contact escalation feature
  */
 @Entity
 @Table(name = "contacts")
